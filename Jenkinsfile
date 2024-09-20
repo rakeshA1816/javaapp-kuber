@@ -1,6 +1,6 @@
 pipeline {
     environment {
-        imagename = "rakesha1618/javaapp-jenkins-training"
+        imagename = "sathishbob/javaapp-jenkins-training"
         dockerImage = ''
         registryCredentials = 'dockerhub'
     }
@@ -13,7 +13,7 @@ pipeline {
     stages {
         stage("pullscm") {
             steps {
-                git credentialsId: 'git', url: 'https://github.com/rakeshA1816/javaapp-kuber.git'
+                git credentialsId: 'git', url: 'git@github.com:sathishbob/javaapp-kuber.git'
             }
         }
         stage("build") {
@@ -47,7 +47,7 @@ pipeline {
         stage("kubedeployment") {
             steps {
                 sh "sed -i s/latest/$BUILD_NUMBER/g kubernetes-java/deploy.yml"
-                sh "kubectl apply -f kubernetes-java/deploy.yml"
+                sh "sudo kubectl apply -f kubernetes-java/deploy.yml"
             }
         }
     }
